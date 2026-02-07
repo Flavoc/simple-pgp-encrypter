@@ -3,7 +3,6 @@ from pynput import keyboard
 import pyperclip
 import pyautogui
 import os
-import time
 
 
 def hashing(clear):
@@ -24,10 +23,11 @@ def hashing(clear):
     =FokO
     -----END PGP PUBLIC KEY BLOCK-----
     """
+    certificateid = "B2327C2758E6587B" # - replace with yours certificate id
 
     gpg = gnupg.GPG()
     gpg.import_keys(publickey)
-    hashed = gpg.encrypt(clear, 'B2327C2758E6587B') # - replace with yours certificate id
+    hashed = gpg.encrypt(clear, recipients=certificateid) 
     pyperclip.copy(str(hashed))
 
 global clicked
@@ -53,7 +53,7 @@ def copyANDpaste(key):
 def emergencybutton(key):
     if key == keyboard.Key.insert:
         os._exit(0)
-    
+        
 def unclicked():
     global clicked
     clicked = False
